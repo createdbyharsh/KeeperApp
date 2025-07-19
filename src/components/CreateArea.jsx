@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Note from "./Note";
-import Title from "./Title";
 
 function CreateArea(props) {
   const [input, setInput] = useState("");
@@ -29,6 +28,14 @@ function CreateArea(props) {
     setInputContent("");
   }
 
+  function deleteItem(id) {
+    setInput((prevItems) => {
+      return prevItems.filter((x, index) => {
+        return index !== id;
+      });
+    });
+  }
+
   return (
     <div>
       <form>
@@ -49,7 +56,13 @@ function CreateArea(props) {
       </form>
       <div className="note-containter">
         {title.map((x, index) => (
-          <Note key={index} title={x} content={content[index]} />
+          <Note
+            key={index}
+            id={index}
+            title={x}
+            content={content[index]}
+            onTap={deleteItem}
+          />
         ))}
       </div>
     </div>
